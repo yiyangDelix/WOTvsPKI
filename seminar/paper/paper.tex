@@ -1,0 +1,103 @@
+% Do not change the section below
+% ============================================================================
+\documentclass[conference,compsoc,a4paper]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{nimbusmononarrow}
+\usepackage[T1]{fontenc}
+
+\usepackage{balance}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{url}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newcommand{\fixme}[1]{\textcolor{red}{[FIXME: #1]}}
+% ============================================================================
+
+
+% Add additionale LaTeX packages if needed here
+% ============================================================================
+\usepackage[%
+	detect-all,
+	binary-units=true,
+]{siunitx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{moeptikz}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+
+% ============================================================================
+
+
+\begin{document}
+
+% Add paper title here, most likely you want to delete the \thanks{} macro
+% ============================================================================
+\title{Web of Trust vs. PKI: A Survey on Trust Optimizations}
+% ============================================================================
+
+% Update author information
+% ============================================================================
+\author{%
+	\IEEEauthorblockN{%
+		Yiyang Xie,
+		Maximilian Tschirschnitz\IEEEauthorrefmark{1}
+	}
+	\IEEEauthorblockA{%
+		\IEEEauthorrefmark{1}Chair of IT Security,
+		Department of Informatics\\
+		Technical University of Munich, Germany\\
+		Email: xieyi@in.tum.de, maximilian.tschirschnitz@tum.de
+	}
+}
+% ============================================================================
+
+\maketitle
+
+% Edit include/abstract.tex to write your paper's abstract
+% ============================================================================
+\begin{abstract}
+\input{include/0_abstract}
+\end{abstract}
+% ============================================================================
+
+% List keywords of your paper in lower-case below
+% ============================================================================
+\begin{IEEEkeywords}
+trust, cryptography, pki (public key infrastructure), wot (web of trust), trust network, gpg
+\end{IEEEkeywords}
+% ============================================================================
+
+
+% For each section of your chapter add one source file in the include folder
+% ============================================================================
+\input{include/1_introduction}
+\input{include/2_relatedWork}
+\input{include/3_background}
+\input{include/4_WoT_PKI}
+\input{include/5_Trust}
+\input{include/6_evaluation}
+\input{include/7_conclusion}
+% ============================================================================
+
+
+% Put your references in the paper.bib file
+% ============================================================================
+\balance
+
+\bibliographystyle{IEEEtran}
+\bibliography{paper}
+% ============================================================================
+
+\end{document}
