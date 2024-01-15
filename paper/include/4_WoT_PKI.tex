@@ -1,5 +1,10 @@
 \section{PKI and WoT}
-
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+    \centering %图片居中
+    \includegraphics[width=0.3\textwidth]{figures/cia.png} %插入图片，[]中设置图片大小，{}中是图片文件名
+    \caption{the basic cryptography security goals} %最终文档中希望显示的图片标题
+    \label{Fig.2: the basic Cryptography Security goals} %用于文内引用的标签
+\end{figure}
 Before describing the two types of security systems, we need to understand the basic 
 Cryptography Security goals, or CIA and the importance of public and private keys 
 for cryptographic security\cite{b31}.
@@ -7,22 +12,13 @@ for cryptographic security\cite{b31}.
     \item \textbf{Conﬁdentiality}: only entitled entities may be able to read the data.
     \item \textbf{Integrity}: tampering with a message will be detected.
     \item \textbf{Authenticity}: the communicating parties can be identiﬁed/veriﬁed.
-    \end{enumerate}
-\\
-These are our core security goals.
-\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
-    \centering %图片居中
-    \includegraphics[width=0.3\textwidth]{figures/cia.png} %插入图片，[]中设置图片大小，{}中是图片文件名
-    \caption{the basic cryptography security goals} %最终文档中希望显示的图片标题
-    \label{Fig.2: the basic Cryptography Security goals} %用于文内引用的标签
-\end{figure}
-In addition, we might also have other goals:
+\end{enumerate}
+These are our core security goals. In addition, we might also have other goals:
 \begin{enumerate}[]
     \item \textbf{Non-repudiation}: a communication partner cannot deny a message originated from her.
     \item \textbf{Forward secrecy}: compromise at this point in time does not lead to compromise of past connections.
     \item \textbf{Availability}: systems and data are available to individuals when they need it under any circumstances, including power outages or natural disasters.
-    \end{enumerate}
-\\
+\end{enumerate}
 Attackers may listen in on messages in transit as well as manipulate them at will. An example
 for a passive attack is eavesdropping: Alice sends Bob a message. Eve is listening on the line.
 Thus, she can also see the message. Now she knows what Alice said. She eavesdropped on
@@ -51,7 +47,12 @@ have securely exchanged shared keys, one of which is typically 128 bits in lengt
 \\
 A different key must be used for each direction of communication and for each purpose 
 (e.g., encryption and authentication).
-\\
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+    \centering %图片居中
+    \includegraphics[width=0.5\textwidth]{figures/private.png} %插入图片，[]中设置图片大小，{}中是图片文件名
+    \caption{private-key cryptography} %最终文档中希望显示的图片标题
+    \label{Fig.2: private-key cryptography} %用于文内引用的标签
+\end{figure}
 We use encryption to provide confidentiality for the message m
 \\
 $k \ = \ Gen(1^n)$
@@ -59,6 +60,7 @@ $k \ = \ Gen(1^n)$
 $c \ = \ Enc_k(m)$
 \\
 $m \ := \ Dec_k(c)$
+\\
 \\
 Enc can be realized with functions such as AES-CTR or ChaCha20.
 We use a message authentication code, e.g., HMAC-SHA2, to provide authenticity and 
@@ -69,6 +71,7 @@ $k \ = \ Gen(1^n)$
 $t \ = \ Mac_k(m)$
 \\
 $b \ := \ Vrfy_k(m, t)$
+\\
 \\
 where b can take both valid and invalid forms.
 In order to obtain a reasonably expected level of security, we always want the message 
@@ -94,6 +97,7 @@ $c \ = \ Enc_{pk}(m)$
 \\
 $m \ := \ Dec_{sk}(c)$
 \\
+\\
 Encryption algorithms can be based on RSA or ECDH issues, such as RSA-OAEP.
 \\
 Signatures are created using a private key and verified using the corresponding public key. 
@@ -105,6 +109,7 @@ $(pk, sk) \ = \ Gen(1^n)$
 $s \ = \ Sign_{sk}(m)$
 \\
 $b \ := \ Vrfy_{pk}(m, s)$
+\\
 \\
 Because public-key encryption is typically slower than secret-key encryption, it is often 
 used in handshakes to utilize key distribution properties and generate shared secret keys, 
@@ -123,7 +128,7 @@ more complex and our assumptions ultimately prove invalid. Consider the followin
     \item[*] traﬃc analysis
     \item[*] baseboard management controllers
     \item[*] correct behaviour is diﬃcult for users
-    \end{enumerate}
+\end{enumerate}
 
 \subsubsection{Signatures and Certiﬁcates}\cite{b38}
 Digital signatures are the cyberspace version of handwritten signatures. Both digital and 
@@ -179,14 +184,6 @@ signature of the person who signed the document you received. Imagine these thre
 \end{itemize}
 
 \subsubsection{Transport Layer Security}\cite{b38}
-
-\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
-    \centering %图片居中
-    \includegraphics[width=0.5\textwidth]{figures/TLS.png} %插入图片，[]中设置图片大小，{}中是图片文件名
-    \caption{TLS 1.2 and TLS 1.3 handshake} %最终文档中希望显示的图片标题
-    \label{Fig.2: TLS 1.2 and TLS 1.3 handshake} %用于文内引用的标签
-\end{figure}
-
 TLS stands for Transport Layer Security, a protocol used to protect Layer 4 traffic. 
 While researching more about it, you may stumble upon the term SSL (Secure Sockets Layer), 
 which is the predecessor to TLS.
@@ -194,10 +191,20 @@ which is the predecessor to TLS.
 The Internet Engineering Task Force (IETF) released TLS 1.3 in August 2018. The version it 
 replaces, TLS 1.2, was standardized a decade ago in 2008, but it is still widely deployed 
 and is only slowly being replaced by its successor.
-\\
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+    \centering %图片居中
+    \includegraphics[width=0.5\textwidth]{figures/TLS.png} %插入图片，[]中设置图片大小，{}中是图片文件名
+    \caption{TLS 1.2 and TLS 1.3 handshake} %最终文档中希望显示的图片标题
+    \label{Fig.2: TLS 1.2 and TLS 1.3 handshake} %用于文内引用的标签
+\end{figure}
 The diagram above \ref{Fig.2: TLS 1.2 and TLS 1.3 handshake} briefly summarizes the 
 TLS 1.2 and TLS 1.3 handshakes. You can see a 
 representation of each of the 4 main segments of TLS 1.2 and the 3 segments of TLS 1.3.
+\\
+TLS 1.3 drops support for older, less secure cryptographic features. TLS 1.3 reduces 
+TLS handshakes, 1-RTT instead of 2-RTT. TLS 1.3 additionally supports 0-RTT handshake 
+which can be used, if client and server share a pre-shared key (either obtained externally 
+or via a previous handshake). This allows the client to send data on the first flight.
 
 \subsubsection{Diﬃe-Hellman-Key-Exchange}\cite{b38}
 A fundamental problem when using symmetric keys is how to exchange them without anyone 
@@ -212,7 +219,7 @@ principle of key derivation between Alice and Bob is the following scheme:
     \item[*] Alice and Bob agree on two parameters $g$ and $p$ for the key export. This can be done by Alice simply choosing them and sending them to Bob.
     \item[*] Both then generate a random number. This number is known only to them and will not be sent anywhere. Using this random number, Alice calculates $A \ = \ g^a \ mod \ p$ and Bob calculates $B \ = \ g^b \ mod \ p$. A and B are then sent to their respective other partners.
     \item[*] They can now both generate the shared key K by computing $K \ = \ B^a \ mod \ p$ and $K \ = \ A^b \ mod \ p$.
-    \end{enumerate}
+\end{enumerate}
 \\
 Alice and Bob now share the same key K. The important thing here is that it is not possible 
 to derive K by knowing g, p, A, and B. For this, the attacker needs to keep the random numbers 
@@ -251,7 +258,7 @@ it must obtain all certificates until it retrieves one signed by the root CA.
     \includegraphics[width=0.5\textwidth]{figures/PKI_Chain_of_Trust.png} %插入图片，[]中设置图片大小，{}中是图片文件名
     \caption{PKI - Chain of Trust} %最终文档中希望显示的图片标题
     \label{Fig.2: PKI_Chain_of_Trust} %用于文内引用的标签
-    \end{figure}
+\end{figure}
 
 \subsubsection{Certiﬁcation Request}\cite{b38}
 Let's consider a server. Before it can prove its identity with a signed certificate, it must 
@@ -287,8 +294,8 @@ where there are no CAs, but rather a network built on one-to-one trust\cite{b7}.
     \includegraphics[width=0.5\textwidth]{figures/decentralized_trust_model.png} %插入图片，[]中设置图片大小，{}中是图片文件名
     \caption{The decentralized trust model} %最终文档中希望显示的图片标题
     \label{Fig.2: decentralized_trust_model} %用于文内引用的标签
-    \end{figure}
-\\
+\end{figure}
+
 The concept of trust networks was first introduced by PGP author Philip Zimmermann in 
 the PGP 2.0 manual\cite{b7}.
 \\
@@ -313,9 +320,8 @@ and fault-tolerant.
     \includegraphics[width=0.5\textwidth]{figures/trustSystem.png} %插入图片，[]中设置图片大小，{}中是图片文件名
     \caption{MDS-Based (Mean Shortest Distance) Trust System} %最终文档中希望显示的图片标题
     \label{Fig.2: MDS-Based (Mean Shortest Distance) Trust System} %用于文内引用的标签
-    \end{figure}
+\end{figure}
 
-\\
 In a trust network, any trust network user can verify the public key credentials of other 
 trust network users. However, such credentials are only trusted if the third party also 
 considers the verifier to be a trusted referrer. (That is, if you want to trust a key that 
@@ -346,7 +352,7 @@ and browser\cite{b28}.
     \includegraphics[width=0.2\textwidth]{figures/directTrust.png} %插入图片，[]中设置图片大小，{}中是图片文件名
     \caption{Direct Trust} %最终文档中希望显示的图片标题
     \label{Fig.3: Direct Trust} %用于文内引用的标签
-    \end{figure}
+\end{figure}
 
 
 \subsubsection{Trust Tree}
@@ -362,16 +368,10 @@ is a chain of trust, while from a holistic perspective, it is actually a tree of
     \includegraphics[width=0.4\textwidth]{figures/trustTree.png} %插入图片，[]中设置图片大小，{}中是图片文件名
     \caption{Trust Tree} %最终文档中希望显示的图片标题
     \label{Fig.4: Trust Tree} %用于文内引用的标签
-    \end{figure}
+\end{figure}
 
 
 \subsubsection{Trust Network}
-\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
-    \centering %图片居中
-    \includegraphics[width=0.4\textwidth]{figures/trustNet.png} %插入图片，[]中设置图片大小，{}中是图片文件名
-    \caption{Trust Network} %最终文档中希望显示的图片标题
-    \label{Fig.5: Trust Network} %用于文内引用的标签
-    \end{figure}
 A trust network differs from the above two models in that a trust network can be 
 thought of as a network of several direct trusts connected together. In a trust 
 network\cite{b27}, you believe that a key is real because someone you trust believes it to 
@@ -380,6 +380,12 @@ be real. This person is called the introducer\cite{b28}.
 You may have heard of the Six Degrees of Separation theory\cite{b37}: that any two people 
 in the world who don't know each other need up to six intermediaries to be able 
 to make a connection\cite{b29}.
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+    \centering %图片居中
+    \includegraphics[width=0.4\textwidth]{figures/trustNet.png} %插入图片，[]中设置图片大小，{}中是图片文件名
+    \caption{Trust Network} %最终文档中希望显示的图片标题
+    \label{Fig.5: Trust Network} %用于文内引用的标签
+\end{figure}
 
 
 \subsubsection{PGP}
@@ -394,7 +400,7 @@ In PGP, there are three levels of trust for a key:
     \item \textbf{Complete Trust}
     \item \textbf{Suspicion}
     \item \textbf{Complete Distrust (or lack of trust)}
-    \end{enumerate}
+\end{enumerate}
 \\
 Only a key that is fully trusted by one referrer, or half-trusted by two referrers, 
 can be determined to be a valid key.
@@ -404,7 +410,7 @@ can be determined to be a valid key.
     \includegraphics[width=0.5\textwidth]{figures/PGP.png} %插入图片，[]中设置图片大小，{}中是图片文件名
     \caption{PGP} %最终文档中希望显示的图片标题
     \label{Fig.6: PGP} %用于文内引用的标签
-    \end{figure}
+\end{figure}
 \\
 In PGP, we no longer rely on CA organizations to help us check the authenticity of 
 certificates, we only trust our own judgment. The concept of decentralization embedded 

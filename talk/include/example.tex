@@ -15,7 +15,6 @@
                 \item<1> Transport Layer Security
                 \item<1> Diffie-Hellman-Key-Exchange
                 \item<1> Certificate Authority
-                \item<1> Certification Request
             \end{itemize}
         \item<1> Introduction of WoT
             \begin{itemize}
@@ -172,7 +171,7 @@
 \section{Diffie-Hellman-Key-Exchange}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.7\textwidth, page=1]{pics/Diffie_Hellman_Key_Exchange.png}
+    \includegraphics<1>[width=.8\textwidth, page=1]{pics/Diffie_Hellman_Key_Exchange.png}
     \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Diffie\%E2\%80\%93Hellman_key_exchange}
 
     \begin{itemize}
@@ -186,11 +185,14 @@
 \section{Certificate Authority}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
-    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \includegraphics<1>[width=.6\textwidth, page=1]{pics/PKI_Chain_of_Trust.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://www.semanticscholar.org/paper/PKI-trust-relationships\%3A-from-a-hybrid-architecture-Satiz\%C3\%A1bal-P\%C3\%A1ez/4e1d85f070b4458b6769d5f8fb976003a1b4fe45}
     \begin{itemize}
-        \item Accuracy: the timestamp differences between measurement and occurrence
-        \item Precision: the fluctuations between measurements
+        \item A client requests a service from a server.
+        \item Since it is a TLS-protected session, the client asks the server to prove its identity 
+        with a certificate. It is signed by a $CA_n$. The client has never heard of $CA_n$ and obtains 
+        a certificate from $CA_n$. It is signed by $CA_{n-1}$. Since the client only knows the root CA, 
+        it must obtain all certificates until it retrieves one signed by the root CA.
     \end{itemize}
 \end{frame}
 
@@ -198,16 +200,17 @@
 \section{Introduction of WoT}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
-    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \includegraphics<1>[width=.8\textwidth, page=1]{pics/decentralized_trust_model.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://de.wikipedia.org/wiki/Web_of_Trust}
     \begin{itemize}
-        \item Accuracy: the timestamp differences between measurement and occurrence
-        \item Precision: the fluctuations between measurements
+        \item Web of Trust (WoT) is a concept in cryptography that can be used to authenticate the identity of the
+        holder of a public key, as applied in PGP, GnuPG, or other OpenPGP-compatible systems.
+        \item Trust networks use the concept of decentralization.
     \end{itemize}
 \end{frame}
 
 % 13
-\section{Introduction of WoT}
+\section{Direct Trust}
 \begin{frame}
     \centering
     \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
