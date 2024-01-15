@@ -6,13 +6,21 @@ for cryptographic security\cite{b31}.
 \begin{enumerate}[]
     \item \textbf{Conﬁdentiality}: only entitled entities may be able to read the data.
     \item \textbf{Integrity}: tampering with a message will be detected.
-    \item \textbf{Authenticity}: the communicating parties can be identiﬁed/veriﬁed These are our core security goals.
+    \item \textbf{Authenticity}: the communicating parties can be identiﬁed/veriﬁed.
     \end{enumerate}
 \\
-We might also have other goals:
+These are our core security goals.
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+    \centering %图片居中
+    \includegraphics[width=0.3\textwidth]{figures/cia.png} %插入图片，[]中设置图片大小，{}中是图片文件名
+    \caption{the basic cryptography security goals} %最终文档中希望显示的图片标题
+    \label{Fig.2: the basic Cryptography Security goals} %用于文内引用的标签
+\end{figure}
+In addition, we might also have other goals:
 \begin{enumerate}[]
     \item \textbf{Non-repudiation}: a communication partner cannot deny a message originated from her.
     \item \textbf{Forward secrecy}: compromise at this point in time does not lead to compromise of past connections.
+    \item \textbf{Availability}: systems and data are available to individuals when they need it under any circumstances, including power outages or natural disasters.
     \end{enumerate}
 \\
 Attackers may listen in on messages in transit as well as manipulate them at will. An example
@@ -71,7 +79,12 @@ to have both: authenticated encryption.
 We use public key (asymmetric) cryptography for three main purposes: confidentiality, 
 authentication, and key exchange. In a public key scheme, each party has a key pair 
 consisting of a private key sk and a corresponding public key pk.
-\\
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+    \centering %图片居中
+    \includegraphics[width=0.3\textwidth]{figures/public_key.png} %插入图片，[]中设置图片大小，{}中是图片文件名
+    \caption{public-key cryptography} %最终文档中希望显示的图片标题
+    \label{Fig.2: public-key cryptography} %用于文内引用的标签
+\end{figure}
 Encryption is performed using the receiver's public key and decryption is performed 
 by the receiver using his private key and vice versa.
 \\
@@ -115,7 +128,12 @@ more complex and our assumptions ultimately prove invalid. Consider the followin
 \subsubsection{Signatures and Certiﬁcates}\cite{b38}
 Digital signatures are the cyberspace version of handwritten signatures. Both digital and 
 handwritten signatures are sent with the original data to provide authentication.
-\\
+\begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
+    \centering %图片居中
+    \includegraphics[width=0.5\textwidth]{figures/signature.png} %插入图片，[]中设置图片大小，{}中是图片文件名
+    \caption{signatures and certificates} %最终文档中希望显示的图片标题
+    \label{Fig.2: Signatures and Certificates} %用于文内引用的标签
+\end{figure}
 In addition, both are inseparable from the original data. In fact, the signature is not 
 inextricably linked. They can be removed by simply cutting out the appropriate portion of 
 the original document. However, this destroys the validity of the document.
@@ -173,7 +191,7 @@ TLS stands for Transport Layer Security, a protocol used to protect Layer 4 traf
 While researching more about it, you may stumble upon the term SSL (Secure Sockets Layer), 
 which is the predecessor to TLS.
 \\
-The Internet Engineering Task Force (IETF) released TLS 1.3 in August 2018.The version it 
+The Internet Engineering Task Force (IETF) released TLS 1.3 in August 2018. The version it 
 replaces, TLS 1.2, was standardized a decade ago in 2008, but it is still widely deployed 
 and is only slowly being replaced by its successor.
 \\
@@ -191,7 +209,7 @@ exchange message. Knowing them does not help an attacker understand the key. The
 principle of key derivation between Alice and Bob is the following scheme:
 
 \begin{enumerate}[]
-    \item[*] Alice and Bob agree on two parameters g and p for the key export. This can be done by Alice simply choosing them and sending them to Bob.
+    \item[*] Alice and Bob agree on two parameters $g$ and $p$ for the key export. This can be done by Alice simply choosing them and sending them to Bob.
     \item[*] Both then generate a random number. This number is known only to them and will not be sent anywhere. Using this random number, Alice calculates $A \ = \ g^a \ mod \ p$ and Bob calculates $B \ = \ g^b \ mod \ p$. A and B are then sent to their respective other partners.
     \item[*] They can now both generate the shared key K by computing $K \ = \ B^a \ mod \ p$ and $K \ = \ A^b \ mod \ p$.
     \end{enumerate}
@@ -325,7 +343,7 @@ and browser\cite{b28}.
 
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
     \centering %图片居中
-    \includegraphics[width=0.3\textwidth]{figures/directTrust.png} %插入图片，[]中设置图片大小，{}中是图片文件名
+    \includegraphics[width=0.2\textwidth]{figures/directTrust.png} %插入图片，[]中设置图片大小，{}中是图片文件名
     \caption{Direct Trust} %最终文档中希望显示的图片标题
     \label{Fig.3: Direct Trust} %用于文内引用的标签
     \end{figure}

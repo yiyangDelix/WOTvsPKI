@@ -2,181 +2,188 @@
 % 2
 \begin{frame}
     \begin{itemize}
-        \item<1> Definition of Latency
-        \item<1> Introduction of Virtualization Technologies
+        \item<1> Background
+        \item<1> Cryptography Security goals
             \begin{itemize}
-                \item<1> Virtual Machines
-                \item<1> Containers
+                \item<1> CIA
             \end{itemize}
-        \item<1> Requirements for Measurement
-        \item<1> Methods of optimizing latency
+        \item<1> Introduction of PKI
+            \begin{itemize}
+                \item<1> Private Keys
+                \item<1> Public Keys
+                \item<1> Signatures and Certificates
+                \item<1> Transport Layer Security
+                \item<1> Diffie-Hellman-Key-Exchange
+                \item<1> Certificate Authority
+                \item<1> Certification Request
+            \end{itemize}
+        \item<1> Introduction of WoT
+            \begin{itemize}
+                \item<1> Direct Trust
+                \item<1> Trust Tree
+                \item<1> Trust Network
+                \item<1> PGP
+            \end{itemize}
+        \item<1> Trust in Social Networks
+        \item<1> Experimental Results and Analyses
         \item<1> Conclusion
     \end{itemize}
 \end{frame}
 
-\section{Definition of Latency}
+% 3
+\section{Background}
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.8\textwidth, page=1]{pics/media.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://www.linkedin.com/pulse/decentralised-everything-vidar-andersen/}
+    \begin{itemize}
+        \item The diagram above illustrates the lifecycle of a centralized platform.
+        \item As the centralized platform develops in an S-curve, the power of the platform over the participants rises, gradually weakening the users' control over their personal information.
+        \item Once it reaches the top of the S-curve, the relationship between the centralized platform and its users shifts from Positive-sum to Zero-sum.
+    \end{itemize}
+\end{frame}
+
+\section{Cryptography Security goals}
+% 4
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.5\textwidth, page=1]{pics/cia.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://www.xplore-dna.net/mod/page/view.php?id=6172}
+    
+    \begin{itemize} 
+        \item The basic Cryptography Security goals, or CIA. These are our core security goals.
+              \begin{itemize}
+                  \item \textbf{Confidentiality:} only entitled entities may be able to read the data.
+                  \item \textbf{Integrity:} tampering with a message will be detected.
+                  \item \textbf{Authenticity:} the communicating parties can be identified/verified.
+                \end{itemize}
+    \end{itemize}
+    
+
+    %\begin{tabular}{|c|c|c|}
+    %    \hline
+    %    \textbf{URLLC Performance Metric} & \textbf{Minimal Value} & \textbf{Maximum Value} \\ \hline
+    %    User plane latency (URLLC)        & -                      & 1ms                    \\ \hline
+    %    Reliability (URLLC)               & 99.999\%               & -                      \\ \hline
+    %\end{tabular}
+
+    %\footnote{Minimum requirements related to technical performance
+    %    for IMT-2020 radio interface(s), ITU, 2017 \cite{b1}}
+
+\end{frame}
+
+
+
+\section{Cryptography Security goals}
+% 5
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.5\textwidth, page=1]{pics/cia.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://www.xplore-dna.net/mod/page/view.php?id=6172}
+
+    \begin{itemize}
+        \item In addition, we might also have other goals.
+              \begin{itemize}
+                  \item \textbf{Non-repudiation:} a communication partner cannot deny a message originated from her.
+                  \item \textbf{Forward secrecy:} compromise at this point in time does not lead to compromise of past connections.
+                  \item \textbf{Availability:} systems and data are available to individuals when they need it under any circumstances, including power outages or natural disasters.
+                \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\section{Private Keys}
+% 6
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.7\textwidth, page=1]{pics/private.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Public-key_cryptography}
+
+    \begin{itemize}
+        \item We use encryption to provide confidentiality for the message m.
+              \begin{itemize}
+                  \item $k \ = \ Gen(1^n)$
+                  \item $c \ = \ Enc_k(m)$
+                  \item $m \ := \ Dec_k(c)$
+                \end{itemize}
+    \end{itemize}
+    \begin{itemize}
+        \item We use a message authentication code, e.g., HMAC-SHA2, to provide authenticity and integrity by generating a message authentication tag t for a message m:
+              \begin{itemize}
+                  \item $k \ = \ Gen(1^n)$
+                  \item $t \ = \ Mac_k(m)$
+                  \item $b \ := \ Vrfy_k(m, t)$
+                \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\section{Public Keys}
+% 7
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.3\textwidth, page=1]{pics/public_key.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Public-key_cryptography}
+
+    \begin{itemize}
+        \item Encryption is performed using the receiver's public key and decryption is performed by the receiver using his private key and vice versa.
+              \begin{itemize}
+                  \item $(pk, sk) \ = \ Gen(1^n)$
+                  \item $c \ = \ Enc_{pk}(m)$
+                  \item $m \ := \ Dec_{sk}(c)$
+                \end{itemize}
+    \end{itemize}
+    \begin{itemize}
+        \item Signatures are created using a private key and verified using the corresponding public key. They provide not only authenticity but also non-repudiation.
+              \begin{itemize}
+                  \item $(pk, sk) \ = \ Gen(1^n)$
+                  \item $s \ = \ Sign_{sk}(m)$
+                  \item $b \ := \ Vrfy_{pk}(m, s)$
+                \end{itemize}
+    \end{itemize}
+\end{frame}
+
 % 8
+\section{Signatures and Certificates}
 \begin{frame}
     \centering
+    \includegraphics<1>[width=.6\textwidth, page=1]{pics/signature.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://cheapsslsecurity.com/blog/digital-signature-vs-digital-certificate-the-difference-explained/}
     \begin{itemize}
-        \item magic triangle of 5G
-              \begin{itemize}
-                  \item enhanced Mobile BroadBand (eMBB)
-                  \item massive Machine-Type Communication (mMTC)
-                  \item \textbf{Ultra-Reliable and Low-Latency Communication (URLLC)}
-              \end{itemize}
+        \item Digital signatures are the cyberspace version of handwritten signatures.
+        Both digital and handwritten signatures are sent with the original data to provide authentication.
     \end{itemize}
-
-
-
-
-    \begin{tabular}{|c|c|c|}
-        \hline
-        \textbf{URLLC Performance Metric} & \textbf{Minimal Value} & \textbf{Maximum Value} \\ \hline
-        User plane latency (URLLC)        & -                      & 1ms                    \\ \hline
-        Reliability (URLLC)               & 99.999\%               & -                      \\ \hline
-    \end{tabular}
-
-    \footnote{Minimum requirements related to technical performance
-        for IMT-2020 radio interface(s), ITU, 2017 \cite{b1}}
-
 \end{frame}
 
+% 9
+\section{Transport Layer Security}
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.7\textwidth, page=1]{pics/TLS.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://kinsta.com/de/blog/tls-1-3/}
 
+    \begin{itemize}
+        \item TLS stands for Transport Layer Security, is a protocol for securing layer 4 traffic and works on the session layer.
+        \item The diagram above briefly summarizes the TLS 1.2 and TLS 1.3 handshakes.
+        \item TLS 1.3 drops support for older, less secure cryptographic features. TLS 1.3 reduces TLS handshakes, 1-RTT instead of 2-RTT.
+    \end{itemize}
+\end{frame}
 
-\section{Introduction of Virtualization Technologies}
+% 10
+\section{Diffie-Hellman-Key-Exchange}
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.7\textwidth, page=1]{pics/Diffie_Hellman_Key_Exchange.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Diffie\%E2\%80\%93Hellman_key_exchange}
+
+    \begin{itemize}
+        \item Alice and Bob agree on two parameters $g$ and $p$ for the key export. This can be done by Alice simply choosing them and sending them to Bob.
+        \item Both then generate a random number. This number is known only to them and will not be sent anywhere. Using this random number, Alice calculates $A \ = \ g^a \ mod \ p$ and Bob calculates $B \ = \ g^b \ mod \ p$. A and B are then sent to their respective other partners.
+        \item They can now both generate the shared key K by computing $K \ = \ B^a \ mod \ p$ and $K \ = \ A^b \ mod \ p$.
+    \end{itemize}
+\end{frame}
+
 % 11
-\begin{frame}
-    \centering
-    \begin{figure}[h!]
-        \centering
-        \begin{tikzpicture}
-            \node [draw, thick, fill = pink, minimum width = 1.8cm, minimum height = 2.2cm]
-            (vm)at(-3,2.75){};
-            %App
-            \node [draw, thick, fill = magenta, minimum width = 1.7cm, minimum height = 0.4cm]
-            (va)at(-3,3.5){App.};
-            %Bins/Lib
-            \node [draw, thick, fill = cyan, minimum width = 1.7cm, minimum height = 0.4cm]
-            (vb)at(-3,3){bin/lib};
-            %Guest OS
-            \node [draw, thick, fill = olive, minimum width = 1.7cm, minimum height = 0.4cm]
-            (OS1)at(-3,2.5){Guest\ OS};
-            %Kernel
-            \node [draw, thick, fill = brown, minimum width = 1.7cm, minimum height = 0.4cm]
-            (K1)at(-3,2){Kernel};
-
-            %VM
-            \node [draw, thick, fill = pink, minimum width = 0.9cm, minimum height = 0.5cm]
-            (v1)at(-0.05,2.2){VM};
-            \node [draw, thick, fill = pink, minimum width = 0.9cm, minimum height = 0.5cm]
-            (v2)at(1,2.2){VM};
-            \node [draw, thick, fill = pink, minimum width = 0.9cm, minimum height = 0.5cm]
-            (v3)at(2.05,2.2){VM};
-
-            \node [draw, thick, fill = pink, minimum width = 0.9cm, minimum height = 0.5cm]
-            (v4)at(3.45,2.8){VM};
-            \node [draw, thick, fill = pink, minimum width = 0.9cm, minimum height = 0.5cm]
-            (v5)at(4.5,2.8){VM};
-            \node [draw, thick, fill = pink, minimum width = 0.9cm, minimum height = 0.5cm]
-            (v6)at(5.55,2.8){VM};
-
-            %Hypervisor
-            \node [draw, thick, fill = yellow, minimum width = 3cm, minimum height = 0.5cm]
-            (Hyper1)at(1,1.6){Hypervisor/VMM};
-            \node [draw, thick, fill = yellow, minimum width = 3cm, minimum height = 0.5cm]
-            (Hyper2)at(4.5,2.2){Hypervisor/VMM};
-
-            \node [draw, thick, fill = orange, minimum width = 3cm, minimum height = 0.5cm]
-            (HOS2)at(4.5,1.6){Host OS};
-
-            \node [draw, thick, fill = red, minimum width = 3cm, minimum height = 0.5cm]
-            (Infra1)at(1,1){Hardware};
-            \node [draw, thick, fill = red, minimum width = 3cm, minimum height = 0.5cm]
-            (Infra2)at(4.5,1){Hardware};
-
-            \draw [->](v1)--(vm);
-            \draw [->](v4)--(vm);
-
-        \end{tikzpicture}
-        \caption{Structure of VM}
-        \label{Structure of VM}
-    \end{figure}
-    \begin{itemize}
-        \item Hypervisor: Type 1 (without Host OS), Type 2 (with Host OS)
-        \item VMs:
-              \begin{itemize}
-                  \item \textbf{with full Guest OS}
-                  \item store traditional monolithic workloads,
-                        e.g.\ abstracting, separating, replicating and emulating
-                        entire servers, operating systems, desktops, databases and networks.
-                        \footnote{Introduction to Virtualization, Brief History of Virtualization, oracle, 2012 \cite{b2}}
-              \end{itemize}
-    \end{itemize}
-\end{frame}
-
-
-\section{Introduction of Virtualization Technologies}
-% 13
-\begin{frame}
-    \begin{figure}[h!]
-        \centering
-        \begin{tikzpicture}
-            \node [draw, thick, fill = lime, minimum width = 1.8cm, minimum height = 1.3cm]
-            (cc)at(-3,2){};
-            %App
-            \node [draw, thick, fill = magenta, minimum width = 1.7cm, minimum height = 0.5cm]
-            (ca)at(-3,2.3){App.};
-            %Bins/Lib
-            \node [draw, thick, fill = cyan, minimum width = 1.7cm, minimum height = 0.5cm]
-            (cb)at(-3,1.7){bin/lib};
-            %Container
-            \node [draw, thick, fill = lime, minimum width = 1cm, minimum height = 0.5cm]
-            (c1)at(0.45,1.8){Container};
-            \node [draw, thick, fill = lime, minimum width = 1cm, minimum height = 0.5cm]
-            (c2)at(2,1.8){Container};
-            \node [draw, thick, fill = lime, minimum width = 1cm, minimum height = 0.5cm]
-            (c3)at(3.55,1.8){Container};
-            \node [draw, thick, fill = lime, minimum width = 1cm, minimum height = 0.5cm]
-            (c4)at(5.05,1.8){Container};
-            %Container Engine
-            \node [draw, thick, fill = lightgray, minimum width = 6cm, minimum height = 0.5cm]
-            (Hyper)at(2.75,1.2){Container Engine};
-            \node [draw, thick, fill = orange, minimum width = 6cm, minimum height = 0.5cm]
-            (HOS)at(2.75,0.6){Host Operating System};
-            \node [draw, thick, fill = red, minimum width = 6cm, minimum height = 0.5cm]
-            (Infra)at(2.75,0){Infrastructure (Hardware)};
-
-            \draw [->](c1)--(cc);
-
-        \end{tikzpicture}
-        \caption{Structure of Container}
-        \label{Structure of Container}
-    \end{figure}
-    \begin{itemize}
-        \item Containers:
-              \begin{itemize}
-                  \item much smaller than VMs, \textbf{without the Guest OS}
-                  \item encapsulate individual functions, i.e.\ microservices.
-                        \footnote{Containers vs. Virtual Machines, microsoft, 2021 \cite{b3}}
-              \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\section{Introduction of Virtualization Technologies}
-% 15
-\begin{frame}
-    \centering
-    \includegraphics<1>[width=.7\textwidth, page=1]{pics/Container}
-    \footnote{[Online; accessed 24-Jan-2023] https://akfpartners.com/growth-blog/vms-vs-containers}
-    \begin{itemize}
-        \item VMs: more resources, more operations
-        \item Containers: lightweight, high scalability, high portability
-    \end{itemize}
-\end{frame}
-
-% 18
-\section{Requirements for Measurement}
+\section{Certificate Authority}
 \begin{frame}
     \centering
     \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
@@ -187,8 +194,68 @@
     \end{itemize}
 \end{frame}
 
-% 21
-\section{Methods of optimizing latency}
+% 12
+\section{Introduction of WoT}
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
+    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \begin{itemize}
+        \item Accuracy: the timestamp differences between measurement and occurrence
+        \item Precision: the fluctuations between measurements
+    \end{itemize}
+\end{frame}
+
+% 13
+\section{Introduction of WoT}
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
+    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \begin{itemize}
+        \item Accuracy: the timestamp differences between measurement and occurrence
+        \item Precision: the fluctuations between measurements
+    \end{itemize}
+\end{frame}
+
+% 14
+\section{Introduction of WoT}
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
+    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \begin{itemize}
+        \item Accuracy: the timestamp differences between measurement and occurrence
+        \item Precision: the fluctuations between measurements
+    \end{itemize}
+\end{frame}
+
+% 15
+\section{Introduction of WoT}
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
+    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \begin{itemize}
+        \item Accuracy: the timestamp differences between measurement and occurrence
+        \item Precision: the fluctuations between measurements
+    \end{itemize}
+\end{frame}
+
+% 16
+\section{Trust in Social Networks}
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
+    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \begin{itemize}
+        \item Accuracy: the timestamp differences between measurement and occurrence
+        \item Precision: the fluctuations between measurements
+    \end{itemize}
+\end{frame}
+
+% 17
+\section{Experimental Results and Analyses}
 \begin{frame}
     \centering
     \includegraphics<1>[width=.4\textwidth, page=1]{pics/Optimization2}
@@ -205,8 +272,8 @@
     \end{itemize}
 \end{frame}
 
-% 23
-\section{Methods of optimizing latency}
+% 18
+\section{Conclusion}
 \begin{frame}
     \centering
     \includegraphics<1>[width=.4\textwidth, page=1]{pics/Optimization3}
@@ -224,23 +291,3 @@
     \end{itemize}
 \end{frame}
 
-
-% 25
-\section{Conclusion}
-\begin{frame}
-    \begin{itemize}
-        \item Virtualization: Running multiple independent systems simultaneously
-        \item Differences between VMs \& Containers:
-              \begin{itemize}
-                  \item Isolation
-                  \item Scalability
-                  \item Portability
-              \end{itemize}
-        \item Current latency optimization is satisfactory
-        \item Next step
-              \begin{itemize}
-                  \item Containers make it possible to optimize the latency continuously
-                  \item Hybrid virtualization
-              \end{itemize}
-    \end{itemize}
-\end{frame}
