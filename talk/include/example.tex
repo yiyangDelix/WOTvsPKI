@@ -23,7 +23,7 @@
                 \item<1> Trust Network
                 \item<1> PGP
             \end{itemize}
-        \item<1> Trust in Social Networks
+        \item<1> Nature of Trust
         \item<1> Experimental Results and Analyses
         \item<1> Conclusion
     \end{itemize}
@@ -36,7 +36,7 @@
     \includegraphics<1>[width=.8\textwidth, page=1]{pics/media.png}
     \footnote{[Online; accessed 15-Jan-2024] https://www.linkedin.com/pulse/decentralised-everything-vidar-andersen/}
     \begin{itemize}
-        \item The diagram above illustrates the lifecycle of a centralized platform.
+        \item The diagram above illustrates the lifecycle of a centralized platform. \cite{b35}
         \item As the centralized platform develops in an S-curve, the power of the platform over the participants rises, gradually weakening the users' control over their personal information.
         \item Once it reaches the top of the S-curve, the relationship between the centralized platform and its users shifts from Positive-sum to Zero-sum.
     \end{itemize}
@@ -50,7 +50,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://www.xplore-dna.net/mod/page/view.php?id=6172}
     
     \begin{itemize} 
-        \item The basic Cryptography Security goals, or CIA. These are our core security goals.
+        \item The basic Cryptography Security goals, or CIA. These are our core security goals.\cite{b31}
               \begin{itemize}
                   \item \textbf{Confidentiality:} only entitled entities may be able to read the data.
                   \item \textbf{Integrity:} tampering with a message will be detected.
@@ -81,7 +81,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://www.xplore-dna.net/mod/page/view.php?id=6172}
 
     \begin{itemize}
-        \item In addition, we might also have other goals.
+        \item In addition, we might also have other goals.\cite{b31}
               \begin{itemize}
                   \item \textbf{Non-repudiation:} a communication partner cannot deny a message originated from her.
                   \item \textbf{Forward secrecy:} compromise at this point in time does not lead to compromise of past connections.
@@ -99,7 +99,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Public-key_cryptography}
 
     \begin{itemize}
-        \item We use encryption to provide confidentiality for the message m.
+        \item We use encryption to provide confidentiality for the message m.\cite{b38}
               \begin{itemize}
                   \item $k \ = \ Gen(1^n)$
                   \item $c \ = \ Enc_k(m)$
@@ -124,7 +124,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Public-key_cryptography}
 
     \begin{itemize}
-        \item Encryption is performed using the receiver's public key and decryption is performed by the receiver using his private key and vice versa.
+        \item Encryption is performed using the receiver's public key and decryption is performed by the receiver using his private key and vice versa.\cite{b38}
               \begin{itemize}
                   \item $(pk, sk) \ = \ Gen(1^n)$
                   \item $c \ = \ Enc_{pk}(m)$
@@ -149,7 +149,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://cheapsslsecurity.com/blog/digital-signature-vs-digital-certificate-the-difference-explained/}
     \begin{itemize}
         \item Digital signatures are the cyberspace version of handwritten signatures.
-        Both digital and handwritten signatures are sent with the original data to provide authentication.
+        Both digital and handwritten signatures are sent with the original data to provide authentication.\cite{b38}
     \end{itemize}
 \end{frame}
 
@@ -161,7 +161,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://kinsta.com/de/blog/tls-1-3/}
 
     \begin{itemize}
-        \item TLS stands for Transport Layer Security, is a protocol for securing layer 4 traffic and works on the session layer.
+        \item TLS stands for Transport Layer Security, is a protocol for securing layer 4 traffic and works on the session layer.\cite{b38}
         \item The diagram above briefly summarizes the TLS 1.2 and TLS 1.3 handshakes.
         \item TLS 1.3 drops support for older, less secure cryptographic features. TLS 1.3 reduces TLS handshakes, 1-RTT instead of 2-RTT.
     \end{itemize}
@@ -204,7 +204,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://de.wikipedia.org/wiki/Web_of_Trust}
     \begin{itemize}
         \item Web of Trust (WoT) is a concept in cryptography that can be used to authenticate the identity of the
-        holder of a public key, as applied in PGP, GnuPG, or other OpenPGP-compatible systems.
+        holder of a public key, as applied in PGP, GnuPG, or other OpenPGP-compatible systems.\cite{b7}
         \item Trust networks use the concept of decentralization.
     \end{itemize}
 \end{frame}
@@ -213,84 +213,114 @@
 \section{Direct Trust}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
-    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \includegraphics<1>[width=.3\textwidth, page=1]{pics/directTrust.png}
+    \footnote{[Online; accessed 17-Jan-2024] https://www.networkacademy.io/ccie-enterprise/sdwan/cisco-sd-wan-certificates-explained}
+    \\
+    \\
     \begin{itemize}
-        \item Accuracy: the timestamp differences between measurement and occurrence
-        \item Precision: the fluctuations between measurements
+        \item Direct trust is the simplest model of trust. \cite{b27}
+        \item In this model, if one person trusts another person, this is Direct trust.
     \end{itemize}
 \end{frame}
 
 % 14
-\section{Introduction of WoT}
+\section{Trust Tree}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
-    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \includegraphics<1>[width=.4\textwidth, page=1]{pics/trustTree.png}
+    \footnote{[Online; accessed 17-Jan-2024] https://ebrary.net/134652/computer_science/trust_models_involving_multiple_certification_authorities}
     \begin{itemize}
-        \item Accuracy: the timestamp differences between measurement and occurrence
-        \item Precision: the fluctuations between measurements
+        \item The authenticity of a downstream certificate is
+        proven by the authenticity of the certificate that issued it,
+        until it is directly trusted by the root certificate.\cite{b28}
+        \item From an
+        individual perspective, this is a chain of trust, while from
+        a holistic perspective, it is actually a tree of trust.
     \end{itemize}
 \end{frame}
 
 % 15
-\section{Introduction of WoT}
+\section{Trust Network}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
-    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \includegraphics<1>[width=.4\textwidth, page=1]{pics/trustNet.png}
+    \footnote{[Online; accessed 17-Jan-2024] https://www.networkacademy.io/ccie-enterprise/sdwan/cisco-sd-wan-certificates-explained}
     \begin{itemize}
-        \item Accuracy: the timestamp differences between measurement and occurrence
-        \item Precision: the fluctuations between measurements
+        \item If two individuals trust each other, because each trusts a third person or 
+        entity, this is Third-Party trust. For example, if you and a colleague that you 
+        don't personally know both unquestioningly trust your employer, you trust each 
+        other even though you've never met.\cite{b29}
     \end{itemize}
 \end{frame}
 
 % 16
-\section{Trust in Social Networks}
+\section{PGP}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.6\textwidth, page=1]{pics/Acc&Pre2}
-    \footnote{[Online; accessed 24-Jan-2023] https://sixsigmadsi.com/precision-and-accuracy/}
+    \includegraphics<1>[width=.4\textwidth, page=1]{pics/PGP.png}
+    \footnote{[Online; accessed 17-Jan-2024] https://turingpoint.de/blog/e-mail-verschluesselung-mit-pgp/}
     \begin{itemize}
-        \item Accuracy: the timestamp differences between measurement and occurrence
-        \item Precision: the fluctuations between measurements
+        \item The Privilege and Secrecy Protocol (PGP)
+        is one such security protocol based on a network of
+        trust
+        \item In PGP, there are three levels of trust for a key:
+            \begin{itemize}
+                \item Complete Trust
+                \item Suspicion
+                \item Complete Distrust (or lack of trust)
+            \end{itemize}
+        \item In PGP, we no longer rely on CA organizations to help
+        us check the authenticity of certificates, we only trust our own judgment.\cite{b12}
     \end{itemize}
 \end{frame}
 
 % 17
-\section{Experimental Results and Analyses}
+\section{Nature of Trust}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.4\textwidth, page=1]{pics/Optimization2}
-    \includegraphics<1>[width=.55\textwidth, page=1]{pics/Optimization1}
-    \footnote{S. Gallenmüller, F. Wiedner, J. Naab, and G. Carle, “Ducked Tails:
-        Trimming the Tail Latency of(f) Packet Processing Systems,” 17th
-        International Conference on Network and Service Management
-        (CNSM), 2021, p.537, 2021 \cite{b5}}
+    \includegraphics<1>[width=.4\textwidth, page=1]{pics/weight.png}
+    \includegraphics<1>[width=.4\textwidth, page=1]{pics/relation.png}
+    \footnote{[Online; accessed 17-Jan-2024] https://www.jos.org.cn/html/2017/3/5159.htm#b7}
     \begin{itemize}
-        \item Disable virtual cores
-        \item Enable core isolation
-        \item Reduce the number of CPU OS interrupts
-        \item Disable energy saving mechanism
+        \item Trust is a complex network relationship, characterized by \cite{b15}
+            \begin{itemize}
+                \item Difference
+                \item Ambiguity
+                \item Transmission
+                \item Asymmetry
+                \item Combination
+                \item Dynamics
+            \end{itemize}
     \end{itemize}
 \end{frame}
 
 % 18
-\section{Conclusion}
+\section{Experimental Results and Analyses}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.4\textwidth, page=1]{pics/Optimization3}
-    \includegraphics<1>[width=.4\textwidth, page=1]{pics/Optimization4}
-    \footnote{A. M. Joy, “Performance Comparison between Linux Containers
-        and Virtual Machines,” International Conference on Advances in
-        Computer Engineering and Applications, 2015, p. 342, 2015. \cite{b4}}
+    \includegraphics<1>[width=.4\textwidth, page=1]{pics/parameter1.png}
+    \includegraphics<1>[width=.4\textwidth, page=1]{pics/parameter2.png}
+    \footnote{[Online; accessed 17-Jan-2024] https://www.jos.org.cn/html/2017/3/5159.htm#b7}
     \begin{itemize}
-        \item Containers:
-              \begin{itemize}
-                  \item over 5 times requests more than VMs
-                  \item great scalability, about 22 times of VMs
-                        (high portability)
-              \end{itemize}
+        \item The recommendation error decreases as the number of training
+                times increases, and then gradually tends to converge.\cite{b15}
+        \item In addition to the number of iterations, the dependence
+                of the predicted ratings on the user's own preferences, the
+                weight of localized trust in the trustworthiness, and the
+                common rating threshold of two users, etc., all have an
+                impact on the recommendation results of trust algorithms
     \end{itemize}
 \end{frame}
 
+% 19
+\section{Conclusion}
+\begin{frame}
+    \begin{itemize}
+        \item The trust between users is categorized into three 
+        levels: complete trust, suspicion and complete distrust.
+        \item WoT, an emerging cryptographic technology for decentralization
+        \item PKI poses a great potential risk to the user's privacy and security
+        \item A decentralized security system based on WoT can maximize the protection of 
+        communication between two users.
+    \end{itemize}
+\end{frame}

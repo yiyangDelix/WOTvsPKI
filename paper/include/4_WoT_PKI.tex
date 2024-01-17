@@ -167,9 +167,9 @@ Using $K_{pubBOB}$ to encrypt the data, only one person can decrypt and read the
 Guess who... The owner of the corresponding private key $K_{privBOB}$, of course. 
 Assuming this key is stored securely, the only person who knows $K_{privBOB}$ is Bob. 
 Therefore, by binding Bob to $K_{pubBOB}$, Alice can securely send data to Bob. It is 
-important to understand these correlations.
+important to understand these correlations. One question remains open. How does the binding happen?
 \\
-One question remains open. How does the binding happen? Now we can close the loop. 
+Now we can close the loop. 
 Binding occurs through signatures. The signature is given by a trusted third party, 
 thus confirming, "Yes, I know and guarantee that Bob and $K_{pubBOB}$ do belong together." 
 The identity of that person and the mystery of trust in that context will be revealed 
