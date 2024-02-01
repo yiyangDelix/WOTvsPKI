@@ -64,7 +64,7 @@ $m \ := \ Dec_k(c)$
 \\
 Enc can be realized with functions such as AES-CTR or ChaCha20.
 We use a message authentication code, e.g., HMAC-SHA2, to provide authenticity and 
-integrity by generating a message authentication tag t for a message m:
+integrity by generating a message authentication tag $t$ for a message m:
 \\
 $k \ = \ Gen(1^n)$
 \\
@@ -73,7 +73,7 @@ $t \ = \ Mac_k(m)$
 $b \ := \ Vrfy_k(m, t)$
 \\
 \\
-where b can take both valid and invalid forms.
+where $b$ can take both valid and invalid forms.
 In order to obtain a reasonably expected level of security, we always want the message 
 to have both: authenticated encryption.
 
@@ -81,7 +81,7 @@ to have both: authenticated encryption.
 \\
 We use public key (asymmetric) cryptography for three main purposes: confidentiality, 
 authentication, and key exchange. In a public key scheme, each party has a key pair 
-consisting of a private key sk and a corresponding public key pk.
+consisting of a private key $sk$ and a corresponding public key $pk$.
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
     \centering %图片居中
     \includegraphics[width=0.3\textwidth]{figures/public_key.png} %插入图片，[]中设置图片大小，{}中是图片文件名
@@ -164,7 +164,7 @@ Knowing this, Alice can determine one thing:
 \\
 Using $K_{pubBOB}$ to encrypt the data, only one person can decrypt and read the data.
 \\
-Guess who... The owner of the corresponding private key $K_{privBOB}$, of course. 
+The owner of the corresponding private key $K_{privBOB}$. 
 Assuming this key is stored securely, the only person who knows $K_{privBOB}$ is Bob. 
 Therefore, by binding Bob to $K_{pubBOB}$, Alice can securely send data to Bob. It is 
 important to understand these correlations. One question remains open. How does the binding happen?
@@ -200,9 +200,47 @@ and is only slowly being replaced by its successor.
 The diagram above \ref{Fig.2: TLS 1.2 and TLS 1.3 handshake} briefly summarizes the 
 TLS 1.2 and TLS 1.3 handshakes. You can see a 
 representation of each of the 4 main segments of TLS 1.2 and the 3 segments of TLS 1.3.
+\begin{enumerate}[]
+    \item[*] Step 1: Client Hello
+        \begin{enumerate}[]
+            \item[*]  The Client hello message is a request to the server to begin a TLS handshake.
+            \item[*] The message includes the client's TLS version, a random value, and a list of supported cipher suites.
+        \end{enumerate}
+    \item[*] Step 2: Server Hello
+        \begin{enumerate}[]
+            \item[*] After receiving the Client Hello message, the server will
+                \begin{enumerate}[]
+                    \item[*] confirm whether it supports the TLS version.
+                    \item[*] choose a cipher suite from the list in the Client Hello message.
+                    \item[*] generate a server random value.
+                \end{enumerate}
+                This information will be as a response to the client in a Server Hello message.
+            \item[*] The server will also send the Certificate to the client.
+            \item[*] Then the server will send the Server Key exchange.
+            \item[*] In the end, a Server Hello Done message is sent to tell the client that all messages have been sent.
+        \end{enumerate}
+    \item[*] Step 3: Client Key Exchange
+        \begin{enumerate}[]
+            \item[*] After the client receives the server certificate, it will verify the 
+            certificate and generate encryption keys using the client's and server's public key 
+            and the two random numbers. Then the client sends a Change Cipher Spec message to 
+            inform it that it changes to encrypted communication.
+            \item[*] Then the client will send the Client Key exchange.
+            \item[*] The client sends a Finished message to indicate it has completed its 
+            part of the handshake.
+        \end{enumerate}
+    \item[*] Step 4: Server Change Cipher Spec
+        \begin{enumerate}[]
+            \item[*] After the server receives a Client Key Exchange message, it will use 
+            it to compute the Master Key. Then, the server sends a Change Cipher Spec message 
+            to inform it that it changes to encrypted communication.
+            \item[*] Finally, a Finished message is sent to acknowledge that the key exchange 
+            and authentication processes are finished successfully.
+        \end{enumerate}
+\end{enumerate}
 \\
 TLS 1.3 drops support for older, less secure cryptographic features. TLS 1.3 reduces 
-TLS handshakes, 1-RTT instead of 2-RTT. TLS 1.3 additionally supports 0-RTT handshake 
+TLS handshakes, 1-RTT instead of 2-RTT. In addition, the TLS 1.3 supports 0-RTT handshake 
 which can be used, if client and server share a pre-shared key (either obtained externally 
 or via a previous handshake). This allows the client to send data on the first flight.
 
@@ -217,16 +255,18 @@ principle of key derivation between Alice and Bob is the following scheme:
 
 \begin{enumerate}[]
     \item[*] Alice and Bob agree on two parameters $g$ and $p$ for the key export. This can be done by Alice simply choosing them and sending them to Bob.
-    \item[*] Both then generate a random number. This number is known only to them and will not be sent anywhere. Using this random number, Alice calculates $A \ = \ g^a \ mod \ p$ and Bob calculates $B \ = \ g^b \ mod \ p$. A and B are then sent to their respective other partners.
+    \item[*] Both then generate a random number. This number is known only to them and will not be sent anywhere. Using this random number, Alice calculates $A \ = \ g^a \ mod \ p$ and Bob calculates $B \ = \ g^b \ mod \ p$. 
+    $A$ and $B$ are then sent to their respective other partners.
     \item[*] They can now both generate the shared key K by computing $K \ = \ B^a \ mod \ p$ and $K \ = \ A^b \ mod \ p$.
 \end{enumerate}
 \\
-Alice and Bob now share the same key K. The important thing here is that it is not possible 
-to derive K by knowing g, p, A, and B. For this, the attacker needs to keep the random numbers 
-a and b secret.
+Alice and Bob now share the same key $K$. The important thing here is that it is not possible 
+to derive $K$ by knowing $g$, $p$, $A$, and $B$. For this, the attacker needs to keep the random numbers 
+$a$ and $b$ secret.
+By this algorithm it allows both parties to establish a key over an insecure channel without any prior information.
 
 \subsubsection{Certiﬁcate Authority}\cite{b38}
-Let's consider the previous question. But whose key is it? It is the public key of an 
+There is still one question. Whose key is it? It is the public key of an 
 organization called a Certificate Authority (CA). The CA issues the certificate and 
 also signs it using its private key. The signing is actually performed by a 
 Registration Authority (RA). In many cases, the CA also assumes the role of the RA. 
@@ -344,8 +384,8 @@ trusted, and people thus trust that their verification of other keys is valid.
 Direct trust is the simplest model of trust. In this model, the user trusts a 
 key to be valid because they know where it came from\cite{b27}. All cryptosystems use this 
 form of trust to some extent. For example, in web browsers, CA agency root 
-certificates are trusted directly because they are built into the operating system 
-and browser\cite{b28}.
+certificates are trusted directly because they are built or embedded into the operating system 
+or the browsers\cite{b28}.
 
 \begin{figure}[H] %H为当前位置，!htb为忽略美学标准，htbp为浮动图形
     \centering %图片居中
@@ -373,7 +413,7 @@ is a chain of trust, while from a holistic perspective, it is actually a tree of
 
 \subsubsection{Trust Network}
 A trust network differs from the above two models in that a trust network can be 
-thought of as a network of several direct trusts connected together. In a trust 
+thought as a combination of the direct trusts and trust trees. In a trust 
 network\cite{b27}, you believe that a key is real because someone you trust believes it to 
 be real. This person is called the introducer\cite{b28}.
 \\
@@ -389,7 +429,9 @@ to make a connection\cite{b29}.
 
 
 \subsubsection{PGP}
-The Privilege and Secrecy Protocol (PGP) is one such security protocol based on 
+The Pretty Good Privacy (PGP) PGP is a family of software systems
+developed by Philip R. Zimmermann from which OpenPGP is based. It is 
+one such security protocol based on 
 a network of trust\cite{b11}.The biggest difference between PGP and other security protocols 
 is the way he verifies the certificates - based on a network of trust, instead of PKI 
 and root certificates\cite{b12}.
@@ -397,9 +439,9 @@ and root certificates\cite{b12}.
 In PGP, there are three levels of trust for a key:
 
 \begin{enumerate}[]
-    \item \textbf{Complete Trust}
-    \item \textbf{Suspicion}
-    \item \textbf{Complete Distrust (or lack of trust)}
+    \item \textbf{Full Trust (or Complete Trust)}
+    \item \textbf{Half Trust (or Suspicion)}
+    \item \textbf{Distrust (or Complete Distrust or lack of trust)}
 \end{enumerate}
 \\
 Only a key that is fully trusted by one referrer, or half-trusted by two referrers, 
@@ -411,7 +453,298 @@ can be determined to be a valid key.
     \caption{PGP} %最终文档中希望显示的图片标题
     \label{Fig.6: PGP} %用于文内引用的标签
 \end{figure}
+
+Using the commonly used encrypted email as an example, the exact 
+workflow is:
+\\
+Alice wants to send an email to Bob.
+\begin{enumerate}[]
+    \item Bob generates a pair of keys (public and private) and sends 
+    the public key to Alice.
+    \item The PGP protocol uses an algorithm to generate a randomized 
+    session key, which is a very large number and is used only once.
+    \item Alice encrypts the email, using the key she just generated, 
+    and encrypts that key using Bob's public key.
+    \item Finally, Alice sends the encrypted email and the key to 
+    Bob, who decrypts it using his own private key to get the 
+    session key, which in turn allows him to decrypt the complete email.
+\end{enumerate}
 \\
 In PGP, we no longer rely on CA organizations to help us check the authenticity of 
 certificates, we only trust our own judgment. The concept of decentralization embedded 
-in it will bring us more reliable and secure encrypted communication\cite{b36}.
+in it will bring us more reliable and secure encrypted communication\cite{b12}.
+
+
+\subsubsection{Advantages and Disadvantages of PGP}
+PGP encryption has the following advantages:\cite{b9}
+\begin{enumerate}[]
+    \item Secure: PGP encryption uses strong encryption algorithms to protect data.
+    \item Reliable: PGP encryption prevents data from being read or modified by unauthorized users.
+    \item Flexible: PGP can be used to encrypt and authenticate emails, files and other data.
+\end{enumerate}
+\\
+PGP encryption has the following disadvantages:\cite{b9}
+\begin{enumerate}[]
+    \item Complexity: The use of PGP encryption can be complex.
+    \item Performance: PGP encryption may affect the performance of data transmission.
+\end{enumerate}
+
+\subsubsection{Applications of PGP Encryption}
+PGP has three main uses\cite{b9}:
+\begin{enumerate}[]
+    \item Communication security, such as encrypted e-mail and file sharing.
+    \item Online transactions, such as online banking and e-commerce.
+    \item Protect sensitive data such as financial information, medical records and legal documents.
+\end{enumerate}
+    
+Of these, sending and receiving encrypted e-mail is the primary 
+application of PGP.\cite{b7} Digital signatures are a technology based on 
+public key encryption used to prove the identity of the sender 
+of a message and the integrity of the message, as well as to 
+prevent the message from being tampered with.
+\\
+The sender encrypts the digest of the message using his 
+private key to generate a digital signature. The receiver 
+decrypts the digital signature using the sender's public 
+key and generates a digest of the message, comparing the 
+two digests for consistency to verify the integrity and 
+identity of the message. If the digital signature verification 
+fails, the message may have been tampered with or come from a 
+forged sender.\cite{b7}
+\\
+PGP uses symmetric encryption algorithms to protect data 
+confidentiality. It uses public key encryption algorithms to protect 
+the security of symmetric keys. In addition, it uses digital signature 
+techniques to verify the integrity and identity of messages. 
+This combination of symmetric key and public key encryption 
+strikes a balance between security and efficiency. PGP has become 
+a widely used standard for data encryption and digital signatures, 
+protecting user privacy and security\cite{b7, b9, b36}.
+\\
+One might also ask: how can one securely get the public key of an intermediary or other 
+friends? It is indeed possible that a user gets the public key of some other friend that 
+is a fake. But this would require that the evildoer must have earned the trust of many 
+people in the web of trust. This is unlikely, since it would have to be planned over a 
+long period of time.
+\\
+Of course, the PGP has a preventive proposal for this possibility, which is to have a 
+generally trusted organization take on the role of notary public, which is called a 
+certification authority. Every public key signed by it is considered valid, so that everyone 
+just has to have its public key. It is convenient to authenticate its public key because 
+it provides this service widely. It is extremely difficult to fake its public key since 
+it is widely available.\cite{b8, b10} Such a cryptographic system that combines centralization and 
+decentralization is a much better solution.
+
+\subsubsection{GunPG command}
+GnuPG is installed by default on all Linux distributions.\cite{b40, b41}
+\\
+GnuPG is free software designed to follow the OpenPGP technology standard set by the 
+IETF and is compatible with PGP. GnuPG can be used to encrypt and sign communications 
+and manage keys for asymmetric cryptography. GnuPG offers the following features:
+\begin{enumerate}[]
+    \item Public Key Encryption: GnuPG uses public key encryption to protect data from unauthorized access. 
+    The public key is public, while the private key is private.
+    \item Digital Signatures: GnuPG uses digital signatures to verify the integrity and 
+    origin of files. Digital signatures are generated using a private key and can be verified 
+    using a public key.
+    \item Web of Trust: GnuPG uses a web of trust to determine the identity of 
+    other users. A web of trust is a system where users sign each other's names to 
+    establish a relationship of trust.
+    \item Key Management: GnuPG provides a key management system to store and manage your keys.
+\end{enumerate}
+\\
+Management logic for gpg key:\cite{b40, b41}
+\begin{enumerate}[]
+    \item Public Key Encryption: GnuPG uses public key encryption to protect data from unauthorized access. 
+    The public key is public, while the private key is private.
+    \item Digital Signatures: GnuPG uses digital signatures to verify the integrity and 
+    origin of files. Digital signatures are generated using a private key and can be verified 
+    using a public key.
+    \item Web of Trust: GnuPG uses a web of trust to determine the identity of 
+    other users. A web of trust is a system where users sign each other's names to 
+    establish a relationship of trust.
+    \item Key Management: GnuPG provides a key management system to store and manage your keys.
+\end{enumerate}
+
+\lstset{language=C}
+\begin{lstlisting}
+# Generate a master key
+# step 0
+gpg --full-gen-key
+
+# step 1
+gpg (GnuPG) 2.2.27; Copyright (C) 
+2021 Free Software Foundation, 
+Inc.
+This is free software: you are 
+free to change and redistribute 
+it.
+There is NO WARRANTY, to the 
+extent permitted by law.
+
+Please select what kind of key 
+you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+  (14) Existing key from card
+Your selection?
+# default 1
+
+# step 2
+RSA keys may be between 1024 
+and 4096 bits long.
+What keysize do you want? (3072)
+# Enter your desired key length 
+# here, which should not be less 
+# than 2048 bits for RSA.
+# Of course, the higher the number 
+# you enter, the more secure it will 
+# be.
+# Accordingly, the slower the 
+# encryption and decryption will be.
+
+# step 3
+Please specify how long the key 
+should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 
+# By default, you can select 0, 
+# which means it will never expire.
+# You can change your expiration 
+# time anytime before the expiration 
+# date to make sure 
+# you still have control over the 
+# key.
+
+# step 4
+Key expires at Wed 11 Jan 2024 
+05:50:53 PM CST
+Is this correct? (y/N) y
+
+# step 5
+GnuPG needs to construct a user 
+ID to identify your key.
+
+Real name:  yyyyy
+# It can be any name, so don't 
+# enter your real name if you're 
+# concerned about privacy.
+Email address: yyyyy@gmail.com  
+Comment:     # can be left blank
+# If you don't want to use PGP to 
+# authenticate your Git logs, you 
+# can enter whatever you want here, 
+# it doesn't even have to be a real 
+# email address, it just has to be 
+# known by the person who 
+# receives your information. Privacy 
+# is a serious issue, and once you 
+# set it up and publish 
+# it to a public key server, you 
+# cannot delete it!
+
+
+# step 6
+You selected this USER-ID:
+    "yyyyy <yyyyy@gmail.com>"
+
+Change (N)ame, (C)omment, (E)mail 
+or (O)kay/(Q)uit? o
+# After confirming that there are 
+no errors, enter o
+
+
+# step 7
+┌───────────────────────────────
+│ Please enter the passphrase to 
+│ protect your new key           
+│                                
+│ Passphrase: __________________
+│                                
+│       <OK>       <Cancel>     
+└───────────────────────────────
+# Enter a complex password and confirm.
+
+# step 8
+We need to generate a lot of random 
+bytes. It is a good idea to perform
+some other action (type on the keyboard,
+move the mouse, utilize the
+disks) during the prime generation; 
+this gives the random number
+generator a better chance to gain 
+enough entropy.
+# Randomize the movement of your mouse, 
+# the more random your key is the more 
+# secure it is.
+
+# step 9              
+gpg: key 99F583119B7E31F1 marked as 
+ultimately trusted
+gpg: revocation certificate stored 
+as '/root/.gnupg/opegp-revocs.d/7053
+58AB85366CAB05C0220F99F583599B7E31F1.rev'
+public and secret key created and signed.
+
+pub   rsa3072 2024-01-11 [SC]
+      705358AB85366CAB05C0120F99F583599B
+      7E31F1			 # your key id
+uid   yyyyy <yyyyy@gmail.com>
+sub   rsa3072 2024-01-11 [E]
+# This is an automatically generated 
+# subkey for encryption, the E stands
+# for Encrypt.
+
+\end{lstlisting}
+\\
+\\
+The following are common abbreviations:\cite{b40, b41}
+\\
+A    =>    Authentication
+\\
+C    =>    Certify
+\\
+E    =>    Encrypt
+\\
+S    =>    Sign
+\\
+?    =>    Unknown capability
+\\
+sec  =>    Secret Key
+\\
+ssb  =>    Secret SuBkey
+\\
+pub  =>    Public Key
+\\
+sub  =>    Public Subkey
+\\
+\\
+Other commands:\cite{b40, b41}
+\begin{enumerate}[]
+    \item import key: \\gpg --import \$\{filename\}.[pub|priv].gpg
+    \item export public key: \\gpg --export -a \$\{keyid\} > \$\{filename\}.pub.gpg
+    \item export secret key: \\gpg --export-secret-key -a \$\{keyid\} > \$\{filename\}.priv.gpg
+    \item delete public key: \\gpg --delete-key \$\{keyid\}
+    \item delete secret key: \\gpg --delete-secret-key \$\{keyid\}
+    \item Backup and Restore gpg:
+\end{enumerate}
+\lstset{language=Python}
+\begin{lstlisting}
+#backup
+gpg -a --export ${keyid} > public.gpg
+gpg -a --export-secret-keys ${keyid} 
+> private.gpg
+gpg --export-ownertrust > ${keyid}-
+ownertrust-gpg.txt
+
+#restore
+gpg --import private.gpg
+gpg --import-ownertrust ${keyid}-
+ownertrust-gpg.txt
+\end{lstlisting}

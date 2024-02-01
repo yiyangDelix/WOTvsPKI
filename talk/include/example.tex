@@ -12,9 +12,9 @@
                 \item<1> Private Keys
                 \item<1> Public Keys
                 \item<1> Signatures and Certificates
-                \item<1> Transport Layer Security
-                \item<1> Diffie-Hellman-Key-Exchange
                 \item<1> Certificate Authority
+                \item<1> Diffie-Hellman-Key-Exchange
+                \item<1> Transport Layer Security
             \end{itemize}
         \item<1> Introduction of WoT
             \begin{itemize}
@@ -37,7 +37,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://www.linkedin.com/pulse/decentralised-everything-vidar-andersen/}
     \begin{itemize}
         \item The diagram above illustrates the lifecycle of a centralized platform. \cite{b35}
-        \item As the centralized platform develops in an S-curve, the power of the platform over the participants rises, gradually weakening the users' control over their personal information.
+        \item The centralized platform develops in an S-curve. While the power of the platform is increasing over the participants', the users' control over their personal information is weakening.
         \item Once it reaches the top of the S-curve, the relationship between the centralized platform and its users shifts from Positive-sum to Zero-sum.
     \end{itemize}
 \end{frame}
@@ -50,7 +50,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://www.xplore-dna.net/mod/page/view.php?id=6172}
     
     \begin{itemize} 
-        \item The basic Cryptography Security goals, or CIA. These are our core security goals.\cite{b31}
+        \item The basic Cryptography Security goals, or CIA. These are our core security goals. \cite{b31}
               \begin{itemize}
                   \item \textbf{Confidentiality:} only entitled entities may be able to read the data.
                   \item \textbf{Integrity:} tampering with a message will be detected.
@@ -81,7 +81,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://www.xplore-dna.net/mod/page/view.php?id=6172}
 
     \begin{itemize}
-        \item In addition, we might also have other goals.\cite{b31}
+        \item In addition, we might also have other goals. \cite{b31}
               \begin{itemize}
                   \item \textbf{Non-repudiation:} a communication partner cannot deny a message originated from her.
                   \item \textbf{Forward secrecy:} compromise at this point in time does not lead to compromise of past connections.
@@ -99,7 +99,7 @@
     \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Public-key_cryptography}
 
     \begin{itemize}
-        \item We use encryption to provide confidentiality for the message m.\cite{b38}
+        \item We use encryption to provide confidentiality for the message m. \cite{b38}
               \begin{itemize}
                   \item $k \ = \ Gen(1^n)$
                   \item $c \ = \ Enc_k(m)$
@@ -121,10 +121,10 @@
 \begin{frame}
     \centering
     \includegraphics<1>[width=.3\textwidth, page=1]{pics/public_key.png}
-    \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Public-key_cryptography}
+    \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Public-key\_cryptography}
 
     \begin{itemize}
-        \item Encryption is performed using the receiver's public key and decryption is performed by the receiver using his private key and vice versa.\cite{b38}
+        \item Encryption is performed using the receiver's public key and decryption is performed by the receiver using his private key and vice versa. \cite{b38}
               \begin{itemize}
                   \item $(pk, sk) \ = \ Gen(1^n)$
                   \item $c \ = \ Enc_{pk}(m)$
@@ -148,40 +148,11 @@
     \includegraphics<1>[width=.6\textwidth, page=1]{pics/signature.png}
     \footnote{[Online; accessed 15-Jan-2024] https://cheapsslsecurity.com/blog/digital-signature-vs-digital-certificate-the-difference-explained/}
     \begin{itemize}
-        \item Digital signatures are the cyberspace version of handwritten signatures.
-        Both digital and handwritten signatures are sent with the original data to provide authentication.\cite{b38}
+        \item Both digital and handwritten signatures are sent with the original data to provide authentication. \cite{b38}
     \end{itemize}
 \end{frame}
 
 % 9
-\section{Transport Layer Security}
-\begin{frame}
-    \centering
-    \includegraphics<1>[width=.7\textwidth, page=1]{pics/TLS.png}
-    \footnote{[Online; accessed 15-Jan-2024] https://kinsta.com/de/blog/tls-1-3/}
-
-    \begin{itemize}
-        \item TLS stands for Transport Layer Security, is a protocol for securing layer 4 traffic and works on the session layer.\cite{b38}
-        \item The diagram above briefly summarizes the TLS 1.2 and TLS 1.3 handshakes.
-        \item TLS 1.3 drops support for older, less secure cryptographic features. TLS 1.3 reduces TLS handshakes, 1-RTT instead of 2-RTT.
-    \end{itemize}
-\end{frame}
-
-% 10
-\section{Diffie-Hellman-Key-Exchange}
-\begin{frame}
-    \centering
-    \includegraphics<1>[width=.8\textwidth, page=1]{pics/Diffie_Hellman_Key_Exchange.png}
-    \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Diffie\%E2\%80\%93Hellman_key_exchange}
-
-    \begin{itemize}
-        \item Alice and Bob agree on two parameters $g$ and $p$ for the key export. This can be done by Alice simply choosing them and sending them to Bob.
-        \item Both then generate a random number. This number is known only to them and will not be sent anywhere. Using this random number, Alice calculates $A \ = \ g^a \ mod \ p$ and Bob calculates $B \ = \ g^b \ mod \ p$. A and B are then sent to their respective other partners.
-        \item They can now both generate the shared key K by computing $K \ = \ B^a \ mod \ p$ and $K \ = \ A^b \ mod \ p$.
-    \end{itemize}
-\end{frame}
-
-% 11
 \section{Certificate Authority}
 \begin{frame}
     \centering
@@ -196,16 +167,44 @@
     \end{itemize}
 \end{frame}
 
+% 10
+\section{Diffie-Hellman-Key-Exchange}
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.8\textwidth, page=1]{pics/Diffie_Hellman_Key_Exchange.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://en.wikipedia.org/wiki/Diffie\%E2\%80\%93Hellman\_key\_exchange}
+
+    \begin{itemize}
+        \item Alice and Bob agree on two parameters $g$ and $p$ for the key export. This can be done by Alice simply choosing them and sending them to Bob.
+        \item Both then generate a random number. This number is known only to them and will not be sent anywhere. Using this random number, Alice calculates $A \ = \ g^a \ mod \ p$ and Bob calculates $B \ = \ g^b \ mod \ p$. A and B are then sent to their respective other partners.
+        \item They can now both generate the shared key K by computing $K \ = \ B^a \ mod \ p$ and $K \ = \ A^b \ mod \ p$.
+    \end{itemize}
+\end{frame}
+
+% 11
+\section{Transport Layer Security}
+\begin{frame}
+    \centering
+    \includegraphics<1>[width=.7\textwidth, page=1]{pics/TLS.png}
+    \footnote{[Online; accessed 15-Jan-2024] https://kinsta.com/de/blog/tls-1-3/}
+
+    \begin{itemize}
+        \item TLS stands for Transport Layer Security, is a protocol for securing layer 4 traffic and works on the session layer. \cite{b38}
+        \item The diagram above briefly summarizes the TLS 1.2 and TLS 1.3 handshakes.
+        \item TLS 1.3 drops support for older, less secure cryptographic features. TLS 1.3 reduces TLS handshakes, 1-RTT instead of 2-RTT.
+    \end{itemize}
+\end{frame}
+
 % 12
 \section{Introduction of WoT}
 \begin{frame}
     \centering
     \includegraphics<1>[width=.8\textwidth, page=1]{pics/decentralized_trust_model.png}
-    \footnote{[Online; accessed 15-Jan-2024] https://de.wikipedia.org/wiki/Web_of_Trust}
+    \footnote{[Online; accessed 15-Jan-2024] https://de.wikipedia.org/wiki/Web\_of\_Trust}
     \begin{itemize}
-        \item Web of Trust (WoT) is a concept in cryptography that can be used to authenticate the identity of the
-        holder of a public key, as applied in PGP, GnuPG, or other OpenPGP-compatible systems.\cite{b7}
-        \item Trust networks use the concept of decentralization.
+        \item Web of Trust (WoT) is based on decentralization.
+        \item WoT is a concept in cryptography that can be used to authenticate the identity of the
+        holder of a public key, as applied in PGP, GnuPG, or other OpenPGP-compatible systems. \cite{b7}
     \end{itemize}
 \end{frame}
 
@@ -219,7 +218,8 @@
     \\
     \begin{itemize}
         \item Direct trust is the simplest model of trust. \cite{b27}
-        \item In this model, if one person trusts another person, this is Direct trust.
+        \item In this model, if one person trusts him/herself or 
+        another person he/she has known, the relationship is called Direct trust.
     \end{itemize}
 \end{frame}
 
@@ -228,14 +228,12 @@
 \begin{frame}
     \centering
     \includegraphics<1>[width=.4\textwidth, page=1]{pics/trustTree.png}
-    \footnote{[Online; accessed 17-Jan-2024] https://ebrary.net/134652/computer_science/trust_models_involving_multiple_certification_authorities}
+    \footnote{[Online; accessed 17-Jan-2024] https://ebrary.net/134652/computer\_science/trust\_models\_involving\_multiple\_certification\_authorities}
     \begin{itemize}
-        \item The authenticity of a downstream certificate is
-        proven by the authenticity of the certificate that issued it,
-        until it is directly trusted by the root certificate.\cite{b28}
         \item From an
-        individual perspective, this is a chain of trust, while from
-        a holistic perspective, it is actually a tree of trust.
+        individual perspective, this is a chain of trust. \cite{b28}
+        \item From
+        a holistic perspective, this is a tree of trust. \cite{b28}
     \end{itemize}
 \end{frame}
 
@@ -246,10 +244,12 @@
     \includegraphics<1>[width=.4\textwidth, page=1]{pics/trustNet.png}
     \footnote{[Online; accessed 17-Jan-2024] https://www.networkacademy.io/ccie-enterprise/sdwan/cisco-sd-wan-certificates-explained}
     \begin{itemize}
-        \item If two individuals trust each other, because each trusts a third person or 
-        entity, this is Third-Party trust. For example, if you and a colleague that you 
-        don't personally know both unquestioningly trust your employer, you trust each 
-        other even though you've never met.\cite{b29}
+        \item If two people trust each other because each person also 
+        has a third party they trust, this is called third-party trust. \cite{b29}
+        \item For example, if you and a stranger both trust one of your 
+        friends, it's easy for you to get to know each other and 
+        then trust each other, even if you've never met.
+        \item Six Degrees of Separation theory. \cite{b30}
     \end{itemize}
 \end{frame}
 
@@ -257,20 +257,14 @@
 \section{PGP}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.4\textwidth, page=1]{pics/PGP.png}
+    \includegraphics<1>[width=.5\textwidth, page=1]{pics/PGP.png}
     \footnote{[Online; accessed 17-Jan-2024] https://turingpoint.de/blog/e-mail-verschluesselung-mit-pgp/}
     \begin{itemize}
-        \item The Privilege and Secrecy Protocol (PGP)
-        is one such security protocol based on a network of
-        trust
-        \item In PGP, there are three levels of trust for a key:
-            \begin{itemize}
-                \item Complete Trust
-                \item Suspicion
-                \item Complete Distrust (or lack of trust)
-            \end{itemize}
-        \item In PGP, we no longer rely on CA organizations to help
-        us check the authenticity of certificates, we only trust our own judgment.\cite{b12}
+        \item The Pretty Good Privacy (PGP) PGP is a family of software systems
+        developed by Philip R. Zimmermann from which OpenPGP is based. \cite{b12}
+        \item In PGP, there are three levels of trust for a key: Full Trust, Half Trust (or Suspicion), Distrust (or lack of trust).
+        \item In PGP, people no longer rely on CA organizations to help
+        them check the authenticity of certificates. \cite{b12}
     \end{itemize}
 \end{frame}
 
@@ -289,7 +283,7 @@
                 \item Transmission
                 \item Asymmetry
                 \item Combination
-                \item Dynamics
+                \item Dynamic
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -298,17 +292,16 @@
 \section{Experimental Results and Analyses}
 \begin{frame}
     \centering
-    \includegraphics<1>[width=.4\textwidth, page=1]{pics/parameter1.png}
-    \includegraphics<1>[width=.4\textwidth, page=1]{pics/parameter2.png}
+    \includegraphics<1>[width=.45\textwidth, page=1]{pics/parameter1.png}
+    \includegraphics<1>[width=.45\textwidth, page=1]{pics/parameter2.png}
     \footnote{[Online; accessed 17-Jan-2024] https://www.jos.org.cn/html/2017/3/5159.htm#b7}
     \begin{itemize}
-        \item The recommendation error decreases as the number of training
-                times increases, and then gradually tends to converge.\cite{b15}
-        \item In addition to the number of iterations, the dependence
-                of the predicted ratings on the user's own preferences, the
-                weight of localized trust in the trustworthiness, and the
-                common rating threshold of two users, etc., all have an
-                impact on the recommendation results of trust algorithms
+        \item The recommendation error decreases as the number of iterations increases, 
+        and then gradually tends to convergence. \cite{b15}
+        \item In addition to the number of iterations, the dependence 
+        of users' own preferences, the weight of indirect trust, 
+        trust algorithms, etc., all have an impact on trust scores 
+        and recommendation results.
     \end{itemize}
 \end{frame}
 
@@ -317,9 +310,9 @@
 \begin{frame}
     \begin{itemize}
         \item The trust between users is categorized into three 
-        levels: complete trust, suspicion and complete distrust.
-        \item WoT, an emerging cryptographic technology for decentralization
-        \item PKI poses a great potential risk to the user's privacy and security
+        levels: full trust, half trust and distrust.
+        \item PKI brings a potential risk to the user's privacy and security.
+        \item WoT, an emerging cryptographic system for decentralization.
         \item A decentralized security system based on WoT can maximize the protection of 
         communication between two users.
     \end{itemize}
